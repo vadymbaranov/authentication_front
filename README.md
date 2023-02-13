@@ -1,6 +1,7 @@
-# React Starter Pack
+# Login App
+This a client application for Node.js Authentication repo.
 
-To use this template click `Use this template`
+Run `npm ci` and `npm start` to use it with the auth-api
 
 ### Available Scripts
 
