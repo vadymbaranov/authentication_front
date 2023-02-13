@@ -1,10 +1,11 @@
+/* eslint-disable consistent-return */
 import React, { useContext } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Formik, Form, Field } from 'formik';
 import cn from 'classnames';
 
-import { AuthContext } from '../components/AuthContext.jsx';
-import { usePageError } from '../hooks/usePageError.js';
+import { AuthContext } from '../AuthContext/AuthContext';
+import { usePageError } from '../../hooks/usePageError';
 
 function validateEmail(value) {
   if (!value) {
@@ -22,7 +23,7 @@ function validatePassword(value) {
   if (!value) {
     return 'Password is required';
   }
-    
+
   if (value.length < 6) {
     return 'At least 6 characters';
   }
@@ -43,15 +44,15 @@ export const LoginPage = () => {
           password: '',
         }}
         validateOnMount={true}
-        onSubmit={({ email, password }) => {
-          return login({ email, password })
+        onSubmit={({ email, password }) => (
+          login({ email, password })
             .then(() => {
               navigate(location.state?.from?.pathname || '/');
             })
             .catch(error => {
               setError(error.response?.data?.message);
-            });
-        }}
+            }))}
+        }
       >
         {({ touched, errors, isSubmitting }) => (
           <Form className="box">
@@ -141,8 +142,10 @@ export const LoginPage = () => {
           </Form>
         )}
       </Formik>
-
-      {error && <p className="notification is-danger is-light">{error}</p>}
     </>
+
+  {error && (
+    <p className="notification is-danger is-light">{error}</p>
+  )}
   );
 };
